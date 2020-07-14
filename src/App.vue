@@ -1,18 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Projects v-bind:projects="projects"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
+import Projects from "./components/Projects.vue";
+
+import { mapState } from "vuex";
+
+import store from "./store/index";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+    Projects
+  },
+  store,
+  computed: mapState([
+    "projects",
+  ]),
+  beforeCreate() {
+    this.$store.dispatch("set_projects");
+  },
 };
 </script>
 
